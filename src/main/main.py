@@ -85,17 +85,19 @@ def load_and_clean_users(file_path):
 # This function will load the callLogs.csv file into the callLogs table, discarding any records with incomplete data
 def load_and_clean_call_logs(file_path):
 
-    with open(file_path, "r", newline="") as csv_file:
-        reader = csv.reader(csv_file)
+    with open(file_path, newline="") as file:
+        reader = csv.reader(file)
 
-        next(reader, None)
+        next(reader)
+
+        call_id = 1
 
         for row in reader:
 
-            if len(row) != 6:
+            if len(row) != 5:
                 continue
 
-            if any(value.strip() == "" for value in row):
+            if any(col.strip() == "" for col in row):
                 continue
 
             cursor.execute(
@@ -105,14 +107,16 @@ def load_and_clean_call_logs(file_path):
                 VALUES (?, ?, ?, ?, ?, ?)
                 """,
                 (
-                    int(row[0]),
-                    row[1],
+                    call_id,
+                    row[0].strip(),
+                    int(row[1]),
                     int(row[2]),
-                    int(row[3]),
-                    row[4],
-                    int(row[5])
+                    row[3].strip(),
+                    int(row[4])
                 )
             )
+
+            call_id += 1
 
     conn.commit()
 
