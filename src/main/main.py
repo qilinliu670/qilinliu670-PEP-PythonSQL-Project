@@ -55,7 +55,7 @@ def main():
 def load_and_clean_users(file_path):
 
     with open(file_path, newline="") as file:
-        reader = csv.reader(csv_file)
+        reader = csv.reader(file)
 
         next(reader)
 
