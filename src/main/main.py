@@ -202,6 +202,13 @@ def select_from_users_and_call_logs():
 
 
 def return_cursor():
+    global cursor
+
+    try:
+        cursor.execute("SELECT 1")
+    except sqlite3.ProgrammingError:
+        cursor = conn.cursor()
+
     return cursor
 
 
