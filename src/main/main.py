@@ -61,7 +61,7 @@ def load_and_clean_users(file_path):
 
         for row in reader:
 
-            if len(row) != 2:
+            if len(row) != 3:
                 continue
 
             if any(value.strip() == "" for value in row):
