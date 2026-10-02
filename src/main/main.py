@@ -61,7 +61,7 @@ def load_and_clean_users(file_path):
 
         for row in reader:
 
-            if len(row) != 3:
+            if len(row) != 2:
                 continue
 
             if any(value.strip() == "" for value in row):
@@ -202,13 +202,6 @@ def select_from_users_and_call_logs():
 
 
 def return_cursor():
-    global cursor
-
-    try:
-        cursor.execute("SELECT 1")
-    except sqlite3.ProgrammingError:
-        cursor = conn.cursor()
-
     return cursor
 
 
